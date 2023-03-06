@@ -1,4 +1,4 @@
-const UserValidator = require('../server/userValidator');
+const UserValidator = require('../server/core/userValidator');
 
 const userController = {
     getAll: (req, res, next) => {
