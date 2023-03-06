@@ -1,38 +1,33 @@
 class UserValidator {
     static validate(user) {
         const { firstName, lastName, email, userType } = user;
+        const errors = {};
 
-        let errors = {};
-        let isBodyValid = true;
+        this.validateField(firstName, 'firstName', errors);
+        this.validateField(lastName, 'lastName', errors);
+        this.validateField(email, 'email', errors);
+        this.validateUserType(userType, errors);
 
-        if (!firstName || typeof firstName !== "string" || firstName.trim().length === 0) {
-            isBodyValid = false;
-            errors["firstName"] = "This should be a string & not empty";
-        }
-        if (!lastName || typeof lastName !== "string" || lastName.trim().length === 0) {
-            isBodyValid = false;
-            errors["lastName"] = "This should be a string & not empty";
-        }
-        if (!email || typeof email !== "string" || email.trim().length === 0) {
-            isBodyValid = false;
-            errors["email"] = "This should be a string & not empty";
-        }
+        const isValid = Object.keys(errors).length === 0;
+        return { isValid, errors };
+    }
 
-        if (!userType || typeof userType !== "string" || userType.trim().length === 0) {
-            isBodyValid = false;
-            errors["userType"] = "This should be a string & not empty";
+    static validateField(value, fieldName, errors) {
+        if (!value || typeof value !== 'string' || value.trim().length === 0) {
+            errors[fieldName] = 'This should be a string & not empty';
+        }
+    }
+
+    static validateUserType(userType, errors) {
+        if (!userType || typeof userType !== 'string' || userType.trim().length === 0) {
+            errors['userType'] = 'This should be a string & not empty';
         } else {
-            const checks = ["user", "admin", "support"];
-            const found = checks.some((check) => check === userType);
-
-            if (!found) {
-                isBodyValid = false;
-                errors["userType"] =
-                    "This should be a string & can have these values " + checks.join(",");
+            const checks = ['user', 'admin', 'support'];
+            if (!checks.includes(userType)) {
+                errors['userType'] =
+                    'This should be a string & can have these values ' + checks.join(',');
             }
         }
-
-        return { isValid: isBodyValid, errors };
     }
 }
 
