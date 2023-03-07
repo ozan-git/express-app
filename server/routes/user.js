@@ -3,7 +3,7 @@ const router = express.Router();
 const userController = require('../controllers/user');
 
 // middleware that is specific to this router
-const auth  = require('../middlewares/auth');
+const auth = require('../middlewares/auth');
 
 // GET /user (ROUTES)
 router

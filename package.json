@@ -4,8 +4,8 @@
   "description": "Creating Messaging Application API",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon server.js",
-    "start:server": "node server.js"
+    "start": "nodemon ./server/server.js",
+    "start:server": "node ./server/server.js"
   },
   "keywords": [
     "messaging",
