@@ -1,21 +1,13 @@
-const express = require('express');
-const router = express.Router();
-const userController = require('../controllers/user');
+import { Router } from 'express';
+import user from '../controllers/user.js';
 
-// middleware that is specific to this router
-const auth = require('../middlewares/auth');
+const router = Router();
 
 // GET /user (ROUTES)
 router
-    .get('/', auth.decode, userController.getAll)
-    .post('/middleware-login-demo', auth.encode, (req, res) => {
-        return res.status(200).json({ success: true, token: req.token })
-    })
-    .get('/:id', userController.getById)
-    .post('/', userController.createUser)
-    .put('/:id', userController.updateUser)
-    .delete('/:id', userController.deleteUser)
+    .get('/', user.onGetAllUsers)
+    .get('/:id', user.onGetUserById)
+    .post('/', user.onCreateUser)
+    .delete('/:id', user.onDeleteUserById)
 
-
-
-module.exports = router;
+export default router;
